@@ -14,7 +14,15 @@ if (isset($_POST['login'])) {
     if ($user && password_verify($password, $user['password'])) {
         // Successful login
         $_SESSION['user_id'] = $user['id']; // Store user ID in session
-        header("Location: ../index.php"); // Redirect to the main page
+        $_SESSION['user_role'] = $user['role']; // Store user role in session
+        $_SESSION['username'] = $user['username']; // Store username in session
+        
+        // Redirect based on user role
+        if ($user['role'] === 'admin') {
+            header("Location: ../admin/dashboard.php"); // Redirect admin to dashboard
+        } else {
+            header("Location: ../index.php"); // Redirect regular users to main page
+        }
         exit();
     } else {
         // Invalid login
@@ -101,6 +109,11 @@ if (isset($_POST['login'])) {
         <?php if (isset($error_message)): ?>
             <p class="error-message"><?= htmlspecialchars($error_message); ?></p>
         <?php endif; ?>
+        
+        <div style="text-align: center; margin-top: 20px;">
+            <p>Don't have an account? <a href="register.php" style="color: #007bff;">Register here</a></p>
+            <p>Admin? <a href="../admin/login.php" style="color: #dc3545;">Admin Login</a></p>
+        </div>
     </div>
 </body>
 </html>

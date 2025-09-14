@@ -77,6 +77,7 @@ if (!isset($_SESSION['admin_id'])) {
         <nav>
             <a href="add_product.php">Add Product</a>
             <a href="manage_products.php">Manage Products</a>
+            <a href="manage_orders.php">Manage Orders</a>
             <a href="logout.php" class="logout">Logout</a>
         </nav>
     </div>

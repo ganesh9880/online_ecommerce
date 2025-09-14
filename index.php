@@ -35,16 +35,25 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <div class="header-container">
             <h1>Welcome to Our Store</h1>
             <nav>
-                <a href="pages/login.php">Login</a>
-                <a href="pages/register.php">Register</a>
-                <a href="pages/cart.php" class="cart-link">
-                    <img src="images/cart-icon.png" alt="Cart" class="cart-icon">
-                    Cart
-                </a>
-                <!-- Logout button -->
-                <form method="POST" style="display: inline;">
-                    <button type="submit" name="logout" class="logout-button">Logout</button>
-                </form>
+                <?php if (isset($_SESSION['user_id'])): ?>
+                    <!-- User is logged in -->
+                    <span>Welcome, <?= htmlspecialchars($_SESSION['username'] ?? 'User') ?>!</span>
+                    <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin'): ?>
+                        <a href="admin/dashboard.php">Admin Dashboard</a>
+                    <?php endif; ?>
+                    <a href="pages/cart.php" class="cart-link">
+                        <img src="images/cart-icon.png" alt="Cart" class="cart-icon">
+                        Cart
+                    </a>
+                    <form method="POST" style="display: inline;">
+                        <button type="submit" name="logout" class="logout-button">Logout</button>
+                    </form>
+                <?php else: ?>
+                    <!-- User is not logged in -->
+                    <a href="pages/login.php">Login</a>
+                    <a href="pages/register.php">Register</a>
+                    <a href="admin/login.php" style="color: #dc3545;">Admin Login</a>
+                <?php endif; ?>
             </nav>
         </div>
     </header>
