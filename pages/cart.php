@@ -215,7 +215,7 @@ $total_cost = 0;  // Initialize total cost variable
         ?>
         <?php if (!empty($cart_items)) : ?>
             <div class="total-cost">
-                Total: $<?= number_format($total_cost, 2); ?>
+                Total: ₹<?= number_format($total_cost, 2); ?>
             </div>
         <?php endif; ?>
         <div class="cart-actions">

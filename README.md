@@ -6,6 +6,36 @@ A complete, modern ecommerce web application built with PHP, MySQL, and responsi
 ![MySQL](https://img.shields.io/badge/MySQL-8.0+-orange)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
+## 📸 Screenshots
+
+### 🏠 **Main Store Page**
+![Main Store](Screenshorts/store.jpg)
+*Product catalog with responsive design and shopping cart integration*
+
+### 🛒 **Product Catalog**
+![Products](Screenshorts/products.jpg)
+*Browse products with images, descriptions, and add to cart functionality*
+
+### 💳 **Checkout Process**
+![Checkout](Screenshorts/checkout.jpg)
+*Complete checkout form with validation and order processing*
+
+### 🔐 **User Authentication**
+![Login](Screenshorts/Login.jpg)
+*Secure login system with role-based access control*
+
+### 👨‍💼 **Admin Dashboard - Product Management**
+![Manage Products](Screenshorts/manage_products.jpg)
+*Full CRUD operations for product management with responsive table*
+
+### 📦 **Add New Product**
+![Add Product](Screenshorts/add_product.jpg)
+*Admin interface for adding new products with image upload*
+
+### 📋 **Order Management**
+![Manage Orders](Screenshorts/manage_order.jpg)
+*Order tracking and status management system*
+
 ## ✨ Features
 
 ### 🛍️ **Customer Features**
