@@ -146,53 +146,7 @@ ecommerce/
 - CSRF protection
 - Session security
 
-## 🚀 Deployment
 
-### Free Hosting Options
-
-#### 000webhost (Recommended)
-1. Sign up at [000webhost.com](https://000webhost.com)
-2. Create new website
-3. Upload files to `public_html`
-4. Import database via phpMyAdmin
-5. Update database credentials
-
-#### Other Options
-- **InfinityFree** - 100% free PHP hosting
-- **Vercel** - Modern deployment platform
-- **Netlify** - Great for static sites
-- **Heroku** - Cloud platform (limited free tier)
-
-### Production Checklist
-- [ ] Update database credentials
-- [ ] Enable HTTPS/SSL
-- [ ] Set up regular backups
-- [ ] Configure error logging
-- [ ] Test all functionality
-- [ ] Update admin passwords
-
-## 🔧 Configuration
-
-### Database Configuration
-Update `includes/db.php`:
-```php
-$host = 'your_host';
-$dbname = 'your_database';
-$user = 'your_username';
-$password = 'your_password';
-```
-
-### Admin Settings
-- Change default admin password
-- Update admin email
-- Configure email settings for notifications
-
-## 📱 Responsive Design
-
-The application is fully responsive and works on:
-- **Desktop** (1200px+)
-- **Tablet** (768px - 1199px)
-- **Mobile** (320px - 767px)
 
 ## 🐛 Troubleshooting
 
@@ -227,7 +181,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👨‍💻 Author
 
-**Ganesh Bonu**
+**BONU SAI GANESH**
 - GitHub: [@ganesh9880](https://github.com/ganesh9880)
 - Email: ganesh.bonu16@gmail.com
 
