@@ -7,14 +7,18 @@ if (!isset($_SESSION['admin_id'])) {
 }
 
 // Handle order status update
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_status'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['order_id']) && isset($_POST['status'])) {
     $order_id = $_POST['order_id'];
     $new_status = $_POST['status'];
     
-    $stmt = $conn->prepare("UPDATE orders SET status = ? WHERE id = ?");
-    $stmt->execute([$new_status, $order_id]);
-    
-    $success_message = "Order status updated successfully!";
+    try {
+        $stmt = $conn->prepare("UPDATE orders SET status = ? WHERE id = ?");
+        $stmt->execute([$new_status, $order_id]);
+        
+        $success_message = "Order status updated successfully to: " . ucfirst($new_status);
+    } catch (Exception $e) {
+        $error_message = "Error updating order status: " . $e->getMessage();
+    }
 }
 
 // Fetch orders with user information
@@ -139,6 +143,17 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
             text-overflow: ellipsis;
             white-space: nowrap;
         }
+        .status-select {
+            border: 2px solid #007bff;
+            border-radius: 4px;
+            background-color: #f8f9fa;
+            transition: all 0.3s ease;
+        }
+        .status-select:focus {
+            outline: none;
+            border-color: #0056b3;
+            box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+        }
     </style>
 </head>
 <body>
@@ -147,6 +162,10 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
         <?php if (isset($success_message)): ?>
             <div class="alert"><?= htmlspecialchars($success_message) ?></div>
+        <?php endif; ?>
+        
+        <?php if (isset($error_message)): ?>
+            <div class="alert" style="background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb;"><?= htmlspecialchars($error_message) ?></div>
         <?php endif; ?>
         
         <?php if (empty($orders)): ?>
@@ -171,11 +190,12 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <strong><?= htmlspecialchars($order['username'] ?: 'N/A') ?></strong><br>
                         <small><?= htmlspecialchars($order['email']) ?></small>
                     </td>
-                    <td>$<?= number_format($order['total_amount'], 2) ?></td>
+                    <td> ₹<?= number_format($order['total_amount'], 2) ?></td>
                     <td>
                         <span class="status status-<?= $order['status'] ?>">
                             <?= htmlspecialchars($order['status']) ?>
                         </span>
+                        <br><small style="color: #6c757d;">Current</small>
                     </td>
                     <td>
                         <span class="status status-<?= $order['payment_status'] ?>">
@@ -184,9 +204,9 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     </td>
                     <td><?= date('M j, Y', strtotime($order['created_at'])) ?></td>
                     <td>
-                        <form method="POST" style="display: inline;">
+                        <form method="POST" action="manage_orders.php" style="display: inline;">
                             <input type="hidden" name="order_id" value="<?= $order['id'] ?>">
-                            <select name="status" onchange="this.form.submit()" style="font-size: 12px; padding: 4px;">
+                            <select name="status" onchange="if(confirm('Update order status to: ' + this.options[this.selectedIndex].text + '?')) this.form.submit();" class="status-select" style="font-size: 12px; padding: 4px;">
                                 <option value="pending" <?= $order['status'] == 'pending' ? 'selected' : '' ?>>Pending</option>
                                 <option value="processing" <?= $order['status'] == 'processing' ? 'selected' : '' ?>>Processing</option>
                                 <option value="shipped" <?= $order['status'] == 'shipped' ? 'selected' : '' ?>>Shipped</option>
@@ -203,5 +223,7 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
         <a href="dashboard.php" class="btn-back">Back to Dashboard</a>
     </div>
+
+
 </body>
 </html>

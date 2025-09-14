@@ -214,7 +214,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <tr>
                     <td class="col-id"><?= $product['id']; ?></td>
                     <td class="col-name"><?= htmlspecialchars($product['name']); ?></td>
-                    <td class="col-price">$<?= number_format($product['price'], 2); ?></td>
+                    <td class="col-price"> ₹<?= number_format($product['price'], 2); ?></td>
                     <td class="col-description">
                         <span class="description-text" title="<?= htmlspecialchars($product['description']); ?>">
                             <?= htmlspecialchars($product['description']); ?>
@@ -225,7 +225,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     </td>
                     <td class="col-actions actions">
                         <a href="edit_product.php?id=<?= $product['id']; ?>" class="btn-edit">✏️ Edit</a>
-                        <a href="delete_product.php?id=<?= $product['id']; ?>" class="btn-delete" onclick="return confirm('Are you sure you want to delete this product?');">🗑️ Delete</a>
+                        <a href="delete_product.php?id=<?= $product['id']; ?>" class="btn-delete" onclick="return confirm('⚠️ DELETE WARNING ⚠️\n\nAre you sure you want to delete \'<?= htmlspecialchars($product['name']) ?>\'?\n\nThis action cannot be undone!')">🗑️ Delete</a>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -235,6 +235,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <a href="dashboard.php" class="btn-back">Back to Dashboard</a>
 </div>
+
 
 </body>
 </html>
